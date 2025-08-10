@@ -29,6 +29,7 @@ Supports half-stars, dynamic image switching, and robust event handling for a sm
    wfLoadExtension( 'StarRating' );
 
 4. Run the update script to create the required database table:
+5. 
 php maintenance/update.php
 
 This will automatically create the `star_rating` table used to store rating data.
