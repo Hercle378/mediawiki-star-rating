@@ -49,7 +49,7 @@ class Hooks {
 		$digits = max(0, min(4, $digits));
 
 		// Disable caching for this tag
-		$clear_cache = isset( $args['clear_chche'] ) ? $args['clear_chche'] : false;
+		$clear_cache = isset( $args['clear_cache'] ) ? $args['clear_cache'] : false;
 		if ( $clear_cache ) $parser->getOutput()->updateCacheExpiry( 0 );
 
 		$res_rating = self::get_rating_info( $pageId, $tagId ); 
@@ -59,7 +59,7 @@ class Hooks {
 		$count_rate = 'distribution=\'' . json_encode($res_rating['distribution'], JSON_UNESCAPED_UNICODE) . '\'';
 		$rating_point = round($res_rating['avg'], $digits); // 小数点 n 位まで
 
-		$html = '<div class="star-rating" tag_id="' . $tagId . '" rating=' . $rating_point . '>';
+		$html = '<span class="star-rating" tag_id="' . $tagId . '" rating=' . $rating_point . '>';
 		$html_image = '<img src="' . $baseUrl . 'images/star_one.png" ' . 
 						'width="' . $star_size . '" height="' . $star_size . '">';
 
@@ -78,7 +78,7 @@ class Hooks {
 				 ' (' . $res_rating["total"] .' vote(s))</span>' . "<br/>" .
 				 '<span id="thanks_your_rating" class="span_thanks_voting" style="display: none; color: red; font-weight: bold;">' . 
 				 'Thank you for your voiting! > Rated <span id="your_rating" class="span_your_rating"></span></span>' .
-				 '</div><div id="rating-tooltip" class="tooltip_rating" ' . $count_rate . '></div>';
+				 '</span><span id="rating-tooltip" class="tooltip_rating" ' . $count_rate . '></span>';
 
 		return $html;
 
@@ -153,14 +153,11 @@ class Hooks {
 		return true;
 	}
 
-
 	public static function onLoadExtensionSchemaUpdates( DatabaseUpdater $updater ) {
-	  $updater->addExtensionUpdate( [
-	    'addTable',
-	    'star_rating',
-	    'extensions/StarRating/sql/mysql/starRating.sql',
-	    true
-	  ] );
+		$updater->addExtensionTable(
+		'star_rating',
+		__DIR__ . '/../sql/star_rating.sql'
+		);
 	}
 
 }
