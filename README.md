@@ -33,6 +33,8 @@ allowing users to visually rate content with stars—just like "Five stars!".
 Note: Make sure the folder name matches the extension name ("StarRating"),  
 and that the `extension.json` file is present in the root of the folder.
 
+Tested with MediaWiki 1.44.
+
 If you're using a custom image set, update the image paths in the JavaScript file accordingly.
 
 This extension follows a modular structure.  
