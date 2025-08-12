@@ -2,6 +2,8 @@
 
 ![Example Usage](docs/images/readme_001.png)
 
+![Example Usage2](docs/images/readme_003.png)
+
 **Star Rating** displays a five-star rating widget within a MediaWiki page,  
 allowing users to visually rate content with stars—just like "Five stars!".
 

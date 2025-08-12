@@ -1,6 +1,6 @@
 {
   "name": "StarRating",
-  "version": "0.1",
+  "version": "0.1.0",
   "author": "Hercle",
   "description": "Allows users to rate pages from 1 to 5 stars and displays the average score.",
   "type": "extension",

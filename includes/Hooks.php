@@ -16,13 +16,6 @@ use MediaWiki\Parser\ParserOutput;
 
 class Hooks {
 
-	// private static string $extension_root;
-
-	// public static function init(): void {
-	// 	self::$extension_root = dirname(__DIR__);
-	// 	wfDebugLog( "star_ratingggg", self::$extension_root);
-	// }
-
 	public static function onParserFirstCallInit( Parser $parser ) {
         $parser->setHook( 'StarRating', [ self::class, 'renderStarRatingTag' ] );
         return true;
@@ -74,11 +67,11 @@ class Hooks {
 			$html .= '<span class="star" rating="' . $i . '">' . $html_img . '</span>';
 		}
 
-		$html .= '<span id="star_point"> ' . $rating_point . ' Point(s)!'. 
+		$html .= '<span class="star_point"> ' . $rating_point . ' Point(s)!'. 
 				 ' (' . $res_rating["total"] .' vote(s))</span>' . "<br/>" .
-				 '<span id="thanks_your_rating" class="span_thanks_voting" style="display: none; color: red; font-weight: bold;">' . 
-				 'Thank you for your voiting! > Rated <span id="your_rating" class="span_your_rating"></span></span>' .
-				 '</span><span id="rating-tooltip" class="tooltip_rating" ' . $count_rate . '></span>';
+				 '<span class="span_thanks_voting" style="display: none; color: red; font-weight: bold;">' . 
+				 'Thank you for your voiting! > Rated <span class="span_your_rating"></span>' .
+				 '</span><span class="tooltip_rating" ' . $count_rate . '></span></span>';
 
 		return $html;
 
