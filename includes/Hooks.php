@@ -23,8 +23,6 @@ class Hooks {
 
 	public static function renderStarRatingTag( $input, array $args, Parser $parser, PPFrame $frame ) {
 
-		$parser->getOutput()->updateCacheExpiry( 0 ); // Disable caching for this tag
-
 		// リソースパスの取得 JSへの提供
 		$parser->getOutput()->addModules( ['ext.starRating'] );
 
