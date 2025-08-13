@@ -45,37 +45,40 @@ document.querySelectorAll('.star-rating').forEach(div_rating => {
       send_rating(star.getAttribute("rating"), div_rating.getAttribute("tag_id"));
     });
 
+  });
+
+  // tooltip - voting distribution
+  {
     let span_point = div_rating.querySelector('span.star_point');
     let tooltip = div_rating.querySelector('span.tooltip_rating');
 
-    span_point.addEventListener('mouseenter', function (e) {
+    let dist = JSON.parse(tooltip.getAttribute("distribution"));
+    let total_count = tooltip.getAttribute("total");
 
-      let dist = JSON.parse(tooltip.getAttribute("distribution"));
-
-      tooltip.innerHTML = "";
-      for (let i = 5; i >= 1; i--) {
-        for (let j = 0; j < 5; j++) {
-          let tag_img = document.createElement('img');
-          tag_img.setAttribute('width', '16');
-          tag_img.setAttribute('height', '16');
-          tag_img.src = i > j ? path_img_star_1_0 : path_img_star_0_0;
-          tooltip.appendChild(tag_img)
-        }
-        tooltip.appendChild(document.createTextNode(` (${dist[i]})`));
-        tooltip.appendChild(document.createElement('br'));
+    for (let i = 5; i >= 1; i--) {
+      for (let j = 0; j < 5; j++) {
+        let tag_img = document.createElement('img');
+        tag_img.setAttribute('width', '16');
+        tag_img.setAttribute('height', '16');
+        tag_img.src = i > j ? path_img_star_1_0 : path_img_star_0_0;
+        tooltip.appendChild(tag_img)
       }
-
+      let dist_each = dist[i];
+      let dist_percent = total_count != 0 ? Math.floor((dist_each / total_count) * 100) : 0; 
+      tooltip.appendChild(document.createTextNode(` ${dist_percent} % (${dist_each})`));
+      tooltip.appendChild(document.createElement('br'));
+    }
+  
+    span_point.addEventListener('mouseenter', function (e) {
       tooltip.style.left = (e.pageX + 10) + 'px';
       tooltip.style.top = (e.pageY + 10) + 'px';
       tooltip.style.display = 'block';
-
     });
 
     span_point.addEventListener('mouseleave', function () {
       tooltip.style.display = 'none';
     });
-
-  });
+  }
 
 });
 

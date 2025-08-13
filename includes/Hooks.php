@@ -49,6 +49,7 @@ class Hooks {
 		// html
 		$count_rate = 'distribution=\'' . json_encode($res_rating['distribution'], JSON_UNESCAPED_UNICODE) . '\'';
 		$rating_point = round($res_rating['avg'], $digits); // 小数点 n 位まで
+		$total_count = $res_rating['total'];
 
 		$html = '<span class="star-rating" tag_id="' . $tagId . '" rating=' . $rating_point . '>';
 		$html_image = '<img src="' . $baseUrl . 'images/star_one.png" ' . 
@@ -66,10 +67,15 @@ class Hooks {
 		}
 
 		$html .= '<span class="star_point"> ' . $rating_point . ' Point(s)!'. 
-				 ' (' . $res_rating["total"] .' vote(s))</span>' . "<br/>" .
-				 '<span class="span_thanks_voting" style="display: none; color: red; font-weight: bold;">' . 
-				 'Thank you for your voiting! > Rated <span class="span_your_rating"></span>' .
-				 '</span><span class="tooltip_rating" ' . $count_rate . '></span></span>';
+				 ' (' . $total_count .' vote(s))</span>' . "<br/>";
+
+		$html .= '<span class="span_thanks_voting" style="display: none; color: red; font-weight: bold;">' . 
+			'Thank you for your voiting! > Rated <span class="span_your_rating"></span></span>';
+			
+		// count and ratte
+		$html .= '<span class="tooltip_rating" ' . $count_rate . ', total="' . $total_count . '"></span>';
+			
+		$html .= '</span>';
 
 		return $html;
 
