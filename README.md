@@ -100,9 +100,9 @@ The following parameters can be specified:
 
 ```html
 Store 1<br/>
-<StarRating id="store2" digit="2" star_size="20" clear_cache="true">
+<StarRating id="store1" digit="2" star_size="20" clear_cache="true">
 Store 2<br/>
-<StarRating id="store1" digit="2" star_size="20">
+<StarRating id="store2" digit="2" star_size="20">
 ```
   ![tags usage](docs/images/readme_001.png)
 
