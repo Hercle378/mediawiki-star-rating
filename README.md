@@ -77,12 +77,26 @@ with the following structure:
 
 The following parameters can be specified:
 
-| Parameter      | Description                                                                 |
-|----------------|-----------------------------------------------------------------------------|
-| `id`           | Required. Used as a unique identifier for the tag.                         |
-| `digit`        | Number of decimal places shown in the rating score. `0`–`4` (default: `1`) |
-| `star_size`    | Size of the displayed stars (default: `16px`)                              |
-| `clear_cache`  | Clears the page cache when rendering the tag (default: `false`)  <br/> May slow down page display. |
+- **`id`**  
+  Required. Used as the identifier for the tag.
+
+- **`digit`**  
+  Number of decimal places shown in the rating score.  
+  Range: `0` to `4` (Default: `1`)
+
+- **`star_size`**  
+  Size of the displayed stars.  
+  Default: `16px`
+
+- **`clear_cache`**  
+  Clears the page cache when rendering the tag.  
+  Default: `false`
+
+  - If `true`:  
+    Vote data from the database is immediately reflected on the screen,  
+    but page rendering may become slower.
+  - If `false`:  
+    Data is reflected periodically.
 
 ```html
 Store 1<br/>
