@@ -32,27 +32,7 @@ allowing users to visually rate content with stars—just like "Five stars!".
 
    wfLoadExtension( 'StarRating' );
 
-Note: Make sure the folder name matches the extension name ("StarRating"),  
-and that the `extension.json` file is present in the root of the folder.
-
 Tested with MediaWiki 1.44.
-
-If you're using a custom image set, update the image paths in the JavaScript file accordingly.
-
-This extension follows a modular structure.  
-For details, refer to the source files directly (e.g. `includes/`, `modules/`, etc.).
-
-## ⚙️ Configuration
-
-The extension uses default star images located in the `images/` directory:
-
-- star-full.png  
-- star-half.png  
-- star-empty.png
-
-To use your own images, replace these files or update the image paths in `StarRating.js`.
-
-You can also adjust the hover and click behavior by modifying the JavaScript logic in `modules/StarRating.js`.
 
 ## 🧩 Usage
 
