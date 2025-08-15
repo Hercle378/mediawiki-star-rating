@@ -11,7 +11,7 @@ use MediaWiki\Context\RequestContext;
 use MediaWiki\Parser\ParserOutput;
 
 // memo 
-//wfDebugLog( "star_ratingggg", json_encode( $res_rating ));
+//wfDebugLog( "star_rating_log", "log");
 //?action=purge
 
 class Hooks {
@@ -35,12 +35,12 @@ class Hooks {
 		$user = RequestContext::getMain()->getUser();
 		$userId = $user->isRegistered() ? $user->getId() : null;
 		$tagId = isset( $args['id'] ) ? htmlspecialchars( $args['id'] ) : null;
-		$star_size = isset( $args['star_size'] ) ? $args['star_size'] : 16;
-		$digits = isset( $args['digits'] ) ? $args['digits'] : 1;
-		$digits = max(0, min(4, $digits));
+		$star_size = self::check_int( $args['star_size'] ?? null , 1, 100, 16 );
+		$digits = self::check_int( $args['digits'] ?? null, 0, 4, 1 );
 
 		// Disable caching for this tag
-		$clear_cache = isset( $args['clear_cache'] ) ? $args['clear_cache'] : false;
+		$clear_cache = $args['clear_cache'] ?? false;
+		$clear_cache = $clear_cache === true || $clear_cache === 'true';
 		if ( $clear_cache ) $parser->getOutput()->updateCacheExpiry( 0 );
 
 		$res_rating = self::get_rating_info( $pageId, $tagId ); 
@@ -155,6 +155,15 @@ class Hooks {
 		'star_rating',
 		__DIR__ . '/../sql/star_rating.sql'
 		);
+	}
+
+	private static function check_int( $str, $min, $max, $def ): int {
+
+		if (!is_numeric($str)) return $def;
+		$value = (int)$str;
+		if ($value < $min || $value > $max) return $def;
+		return $value;
+
 	}
 
 }
