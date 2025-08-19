@@ -11,13 +11,20 @@ class ApiStarRating extends ApiBase {
         $params = $this->extractRequestParams();
         $user = $this->getUser();
 
-        // 必須チェック
-        if ( !$user->isRegistered() ) { $this->dieWithError( 'apierror-mustbeloggedin', 'notloggedin' ); }
+        $allow_anonymous = $params['allow_anonymous'];
+		$allow_anonymous = $allow_anonymous === true || $allow_anonymous === 'true';
+
+        // ログインチェック
+        if ( !$allow_anonymous && !$user->isRegistered() ) { $this->dieWithError( 'apierror-mustbeloggedin', 'not logged in' ); }
 
         $pageId = intval( $params['pageid'] );
         $userId = $user->getId();
         $tagId =  $params['tagid'];
         $rating = intval( $params['rating'] );
+        if ($user->isAnon()) {
+            $ip_address = $this->getRequest()->getIP();
+            $userId = md5( $ip_address ); 
+        }
 
         $dbw = MediaWikiServices::getInstance()->getConnectionProvider()->getPrimaryDatabase();
 
@@ -46,10 +53,6 @@ class ApiStarRating extends ApiBase {
                 ApiBase::PARAM_TYPE => 'integer',
                 ApiBase::PARAM_REQUIRED => true
             ],
-            'userid' => [
-                ApiBase::PARAM_TYPE => 'integer',
-                ApiBase::PARAM_REQUIRED => true
-            ],
             'tagid' => [
                 ApiBase::PARAM_TYPE => 'string',
                 ApiBase::PARAM_REQUIRED => true
@@ -57,6 +60,10 @@ class ApiStarRating extends ApiBase {
             'rating' => [
                 ApiBase::PARAM_TYPE => 'integer',
                 ApiBase::PARAM_REQUIRED => true
+            ],
+            'allow_anonymous' => [
+                ApiBase::PARAM_TYPE => 'boolean',
+                ApiBase::PARAM_REQUIRED => false
             ]
         ];
     }

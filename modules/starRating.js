@@ -38,11 +38,21 @@ document.querySelectorAll('.star-rating').forEach(div_rating => {
     });
     star.addEventListener('click', function () {
       if (div_rating.getAttribute("your_rating") > 0) return;
+
+      let userId = mw.config.get('wgUserId');
+      let allow_anonymous = div_rating.getAttribute("allow_anonymous") == "true"; 
+      if (!allow_anonymous && !userId ) {
+        alert('Sorry, you need to log in before you can vote.');
+        return;
+      }
+
       let rating = star.getAttribute("rating");
       div_rating.setAttribute("your_rating", rating);
       div_rating.querySelector(".span_thanks_voting").style.display = "block";
       div_rating.querySelector(".span_your_rating").textContent = rating;
-      send_rating(star.getAttribute("rating"), div_rating.getAttribute("tag_id"));
+      send_rating(star.getAttribute("rating"), 
+                  div_rating.getAttribute("tag_id"),
+                  allow_anonymous);
     });
 
   });
@@ -83,10 +93,9 @@ document.querySelectorAll('.star-rating').forEach(div_rating => {
 });
 
 
-function send_rating(rating, tagId) {
+function send_rating(rating, tagId, allow_anonymous) {
 
   let pageId = mw.config.get('wgArticleId');
-  let userId = mw.config.get('wgUserId');
 
   const api = new mw.Api();
   api.getToken('csrf').then(function (token) {
@@ -95,9 +104,9 @@ function send_rating(rating, tagId) {
       format: 'json',
       token: token,
       pageid: pageId,
-      userid: userId,
       tagid: tagId,
-      rating: rating
+      rating: rating,
+      allow_anonymous: allow_anonymous
     });
   }).done(function (data) {
     // 評価送信完了 

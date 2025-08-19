@@ -78,6 +78,10 @@ The following parameters can be specified:
   - If `false`:  
     Data is reflected periodically.
 
+- **`allow_anonymous`**  
+  Allows non-logged-in users to vote.  
+  Default: `false`
+
 ```html
 Store 1<br/>
 <StarRating id="store1" digit="2" star_size="20" clear_cache="true">

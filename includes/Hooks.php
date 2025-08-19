@@ -32,15 +32,14 @@ class Hooks {
 
 		// パラメータセット
 		$pageId =  $parser->getTitle()->getArticleID();
-		$user = RequestContext::getMain()->getUser();
-		$userId = $user->isRegistered() ? $user->getId() : null;
 		$tagId = isset( $args['id'] ) ? htmlspecialchars( $args['id'] ) : null;
 		$star_size = self::check_int( $args['star_size'] ?? null , 1, 100, 16 );
 		$digits = self::check_int( $args['digits'] ?? null, 0, 4, 1 );
-
-		// Disable caching for this tag
 		$clear_cache = $args['clear_cache'] ?? false;
 		$clear_cache = $clear_cache === true || $clear_cache === 'true';
+		$allow_anonymous = $args['allow_anonymous'] ?? false;
+		$allow_anonymous = $allow_anonymous === true || $allow_anonymous === 'true';
+		// Disable caching for this tag
 		if ( $clear_cache ) $parser->getOutput()->updateCacheExpiry( 0 );
 
 		$res_rating = self::get_rating_info( $pageId, $tagId ); 
@@ -51,7 +50,8 @@ class Hooks {
 		$rating_point = round($res_rating['avg'], $digits); // 小数点 n 位まで
 		$total_count = $res_rating['total'];
 
-		$html = '<span class="star-rating" tag_id="' . $tagId . '" rating=' . $rating_point . '>';
+		$html = '<span class="star-rating" tag_id="' . $tagId . '" rating=' . $rating_point . 
+					' allow_anonymous=' . var_export($allow_anonymous, true) .'>';
 		$html_image = '<img src="' . $baseUrl . 'images/star_one.png" ' . 
 						'width="' . $star_size . '" height="' . $star_size . '">';
 
