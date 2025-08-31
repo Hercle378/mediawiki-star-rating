@@ -17,6 +17,40 @@ allowing users to visually rate content with stars—just like "Five stars!".
 
 - Supports placing multiple rating widgets on a single page.
 
+## ❓ QA
+
+### Q. Aren't there other similar add-ins available?
+
+**A.**  
+I created this add-in because the existing ones didn’t allow me to do what I wanted.
+
+For example, imagine a Wiki for a game.
+
+You wouldn’t just ask, “What’s the rating for this game?”
+
+You’d want to rate multiple aspects like:
+
+- How fun is it?
+- How are the graphics?
+- How original is it?
+- How is the music?
+
+In such cases, you’d want to place multiple 5-star ratings on a single page.
+
+This add-in was created to make that possible.
+
+### Q. What if a malicious user tries to vote multiple times?
+
+**A.**  
+First, you can configure via parameters whether to allow only logged-in users to vote, or allow all users.
+
+Also, each user can vote only once per item.
+
+Repeated votes will simply update the previous rating.
+
+For users who are not logged in, their IP address is used for identification, and only one vote per item is accepted.
+
+
 ## 📦 Installation
 
 1. **Download the extension**  
@@ -113,3 +147,14 @@ As a result, variable naming conventions and other styles may be inconsistent.
 I had zero prior knowledge of PHP.
 
 I also had very little understanding of the MediaWiki system.
+
+## Support This Project
+
+Even a small contribution would mean a lot — no amount is too little.  
+Think of it like giving a "like" or a thumbs-up!
+
+Your support helps boost motivation for ongoing improvements and maintenance.  
+Thank you!
+
+👉 [Buy Me a Coffee](https://buymeacoffee.com/hercle)
+
