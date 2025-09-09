@@ -1,0 +1,40 @@
+{
+  "name": "StarRating",
+  "version": "0.1.0",
+  "author": "Hercle",
+  "description": "Allows users to rate pages from 1 to 5 stars and displays the average score.",
+  "type": "extension",
+  "license-name": "GPL-2.0-or-later",
+  "requires": {
+    "MediaWiki": ">= 1.35"
+  },
+  "AutoloadClasses": {
+    "StarRating\\Hooks": "includes/Hooks.php",
+    "ApiStarRating": "includes/api/ApiStarRating.php"
+  },
+  "Hooks": {
+    "ParserFirstCallInit": "StarRating\\Hooks::onParserFirstCallInit",
+    "BeforePageDisplay": "StarRating\\Hooks::onBeforePageDisplay",
+    "LoadExtensionSchemaUpdates": "StarRating\\Hooks::onLoadExtensionSchemaUpdates"
+  },
+	"ResourceModules": {
+    	"ext.starRating": {
+      	"scripts": [ "modules/starRating.js" ],
+        "styles": [ "modules/starRating.css" ],
+        "position": "bottom",
+        "localBasePath": "",
+        "remoteExtPath": "StarRating"
+	  },
+	  "ext.starRating.images": {
+	    "localBasePath": "images",
+	    "remoteExtPath": "StarRating/images",
+	    "scripts": [],
+	    "styles": [],
+	    "targets": ["desktop", "mobile"]
+	  }
+	},
+  "APIModules": {
+    "starrating": "ApiStarRating"
+  },
+  "manifest_version": 2
+}
